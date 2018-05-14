@@ -1,15 +1,13 @@
-FROM openjdk:jre-alpine
-MAINTAINER XebiaLabs "info@xebialabs.com"
+FROM ipaustralia/jdk:1.8u152
+RUN yum -y install supervisor wget
 
-RUN apk --no-cache add supervisor wget
-
-RUN wget --progress=dot:giga -O /tmp/xl-deploy-trial-server.zip https://dist.xebialabs.com/xl-deploy-trial-server.zip && \
+RUN wget --progress=dot:giga --no-check-certificate -O /tmp/xl-deploy-trial-server.zip https://dist.xebialabs.com/xl-deploy-trial-server.zip && \
     mkdir -p /opt/xld && \
     unzip /tmp/xl-deploy-trial-server.zip -d /opt/xld && \
     mv /opt/xld/xl-deploy-*-server /opt/xld/server && \
     rm -rf /tmp/xl-deploy-trial-server.zip
 
-RUN wget --progress=dot:giga -O /tmp/xl-deploy-trial-cli.zip https://dist.xebialabs.com/xl-deploy-trial-cli.zip && \
+RUN wget --progress=dot:giga --no-check-certificate -O /tmp/xl-deploy-trial-cli.zip https://dist.xebialabs.com/xl-deploy-trial-cli.zip && \
     mkdir -p /opt/xld && \
     unzip /tmp/xl-deploy-trial-cli.zip -d /opt/xld && \
     mv /opt/xld/xl-deploy-*-cli /opt/xld/cli && \
